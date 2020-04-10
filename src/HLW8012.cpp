@@ -234,11 +234,6 @@ void HLW8012::_checkCF1Signal() {
 // For current a frequency of 1Hz means around 15mA
 // For voltage a frequency of 1Hz means around 0.5V
 void HLW8012::_calculateDefaultMultipliers() {
-	//HWL
-	//_power_multiplier = ( 1000000.0 * 128 * V_REF * V_REF * _voltage_resistor / _current_resistor / 48.0 / F_OSC );
-	//_voltage_multiplier = ( 1000000.0 * 512 * V_REF * _voltage_resistor / 2.0 / F_OSC );
-    //_current_multiplier = ( 1000000.0 * 512 * V_REF / _current_resistor / 24.0 / F_OSC );
-
 	//BL
 	_power_multiplier =   (  50850000.0 * V_REF * V_REF * _voltage_resistor / _current_resistor / 48.0 / F_OSC) / 1.1371681416f;  //15102450
 	_voltage_multiplier = ( 221380000.0 * V_REF * _voltage_resistor /  2.0 / F_OSC) / 1.0474137931f; //221384120,171674
