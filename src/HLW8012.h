@@ -25,7 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 
 // Internal voltage reference value
-#define V_REF               2.43
+#define V_REF               	1.218
+#define V_REF_HWL               2.43
+#define V_REF_BL0               1.218
 
 // The factor of a 1mOhm resistor
 // as per recomended circuit in datasheet
@@ -34,10 +36,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // This is the factor of a voltage divider of 6x 470K upstream and 1k downstream
 // as per recomended circuit in datasheet
-#define R_VOLTAGE           2821
+#define R_VOLTAGE            	((3 * 680) + 1)
+#define R_VOLTAGE_HWL           2821 //2350
+#define R_VOLTAGE_BL0        	((3 * 680) + 1) //1980 +1
 
 // Frequency of the HLW8012 internal clock
-#define F_OSC               3579000
+#define F_OSC               	2000000
+#define F_OSC_HWL           	3579000
+#define F_OSC_BL0           	(2000000)
 
 // Minimum delay between selecting a mode and reading a sample
 #define READING_INTERVAL    3000
@@ -50,11 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Lower values increase sampling rate but reduce precission
 // Values below 0.5s are not recommended since current and voltage output
 // will have no time to stabilise
-#define PULSE_TIMEOUT       2000000
+#define PULSE_TIMEOUT       2000001
 
 // Define ICACHE_RAM_ATTR for AVR platforms
 #if defined(ARDUINO_ARCH_AVR)
-#define ICACHE_RAM_ATTR     
+#define ICACHE_RAM_ATTR
 #endif
 
 // CF1 mode
