@@ -187,11 +187,10 @@ void ICACHE_RAM_ATTR HLW8012::cf_interrupt() {
 void ICACHE_RAM_ATTR HLW8012::cf1_interrupt() {
 
     unsigned long now = micros();
+    unsigned long pulse_width;
 
     if ((now - _first_cf1_interrupt) > _pulse_timeout) {
 
-        unsigned long pulse_width;
-        
         if (_last_cf1_interrupt == _first_cf1_interrupt) {
             pulse_width = 0;
         } else {
@@ -235,7 +234,13 @@ void HLW8012::_checkCF1Signal() {
 // For current a frequency of 1Hz means around 15mA
 // For voltage a frequency of 1Hz means around 0.5V
 void HLW8012::_calculateDefaultMultipliers() {
-    _current_multiplier = ( 1000000.0 * 512 * V_REF / _current_resistor / 24.0 / F_OSC );
-    _voltage_multiplier = ( 1000000.0 * 512 * V_REF * _voltage_resistor / 2.0 / F_OSC );
-    _power_multiplier = ( 1000000.0 * 128 * V_REF * V_REF * _voltage_resistor / _current_resistor / 48.0 / F_OSC );
+	//HWL
+	//_power_multiplier = ( 1000000.0 * 128 * V_REF * V_REF * _voltage_resistor / _current_resistor / 48.0 / F_OSC );
+	//_voltage_multiplier = ( 1000000.0 * 512 * V_REF * _voltage_resistor / 2.0 / F_OSC );
+    //_current_multiplier = ( 1000000.0 * 512 * V_REF / _current_resistor / 24.0 / F_OSC );
+
+	//BL
+	_power_multiplier =   (  50850000.0 * V_REF * V_REF * _voltage_resistor / _current_resistor / 48.0 / F_OSC) / 1.1371681416f;  //15102450
+	_voltage_multiplier = ( 221380000.0 * V_REF * _voltage_resistor /  2.0 / F_OSC) / 1.0474137931f; //221384120,171674
+	_current_multiplier = ( 531500000.0 * V_REF / _current_resistor / 24.0 / F_OSC) / 1.166666f; //
 }
